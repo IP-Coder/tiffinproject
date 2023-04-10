@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const connectDb = async () => {
     try {
-        const mongoUri = "mongodb+srv://aksh2137:aksh2137@cluster0.jpqpxva.mongodb.net/test";
+        const mongoUri = "mongodb+srv://rohanguptabc80:rohan0000@cluster0.kpjqdwd.mongodb.net/test";
         const dbOptions = {
             dbName: "TiffinService"
         };
