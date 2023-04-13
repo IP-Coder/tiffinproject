@@ -98,6 +98,10 @@ const logout = (req, res) => {
     res.redirect("/login");
 }
 
+const share = (req, res) => {
+    res.render("share");
+}
+
 const Tiffin = async (req, res) => {
     if (req.method == 'GET') {
         const { name, email, phone } = req.session;
@@ -113,4 +117,4 @@ const Tiffin = async (req, res) => {
     }
 }
 
-module.exports = { Home, Login, Signup, contact, profile, logout, Tiffin }; 
+module.exports = { Home, Login, Signup, contact, profile, logout, Tiffin, share }; 

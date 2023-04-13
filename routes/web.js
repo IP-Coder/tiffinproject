@@ -1,4 +1,4 @@
-const { Home, Login, Signup, contact, profile, logout, Tiffin } = require("../controllers/Tiffin-controllers.js");
+const { Home, Login, Signup, contact, profile, logout, Tiffin, share } = require("../controllers/Tiffin-controllers.js");
 const express = require("express");
 
 
@@ -8,6 +8,8 @@ const router = express.Router();
 router.get("/", Home);
 router.get("/login", Login);
 router.post("/login", Login);
+
+router.get("/share", share);
 
 router.get("/signup", Signup);
 router.post("/signup", Signup);
