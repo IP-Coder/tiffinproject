@@ -117,4 +117,8 @@ const Tiffin = async (req, res) => {
     }
 }
 
-module.exports = { Home, Login, Signup, contact, profile, logout, Tiffin, share }; 
+const policy = (req, res) => {
+    return res.render("policy")
+}
+
+module.exports = { Home, Login, Signup, contact, profile, logout, Tiffin, share, policy }; 
