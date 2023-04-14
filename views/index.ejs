@@ -31,16 +31,16 @@
         </h1>
         <div class="icons">
           <div class="fas fa-search" id="search-btn"></div>
-          <a href="/share">
-            <div class="fas fa-share" id="theme-btn" onclick="share()"></div>
-          </a>
+          <!-- <a href="/share"> -->
+          <div class="fas fa-share" id="theme-btn" onclick="share()"></div>
+          <!-- </a> -->
 
           <script>
-             function share(element) {
+             function share() {
                 if (navigator.share) {
 
                   navigator.share({
-                    title: 'Maa ke Hath Ka Kahana', url: 'https://mom-food.azurewebsites.net/' + element
+                    title: 'Maa ke Hath Ka Kahana', url: 'https://mom-food.azurewebsites.net/'
                   })
 
                 }
