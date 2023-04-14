@@ -32,8 +32,20 @@
         <div class="icons">
           <div class="fas fa-search" id="search-btn"></div>
           <a href="/share">
-            <div class="fas fa-share" id="theme-btn"></div>
+            <div class="fas fa-share" id="theme-btn" onclick="share()"></div>
           </a>
+
+          <script>
+             function share(element) {
+                if (navigator.share) {
+
+                  navigator.share({
+                    title: 'Maa ke Hath Ka Kahana', url: 'https://mom-food.azurewebsites.net/' + element
+                  })
+
+                }
+              }
+          </script>
 
           <%if (user!=='no' ) {%>
             <a href="/profile">
@@ -166,11 +178,7 @@
                   </div>
                   <div class="content">
                     <div class="price">60.00 <span>80.00</span></div>
-                    <p>
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Vero,
-                      vitae.
-                    </p>
+                    
                     <a href="/tiffinform" class="btn"> Order now</a>
                   </div>
                 </div>
@@ -184,11 +192,7 @@
                   </div>
                   <div class="content">
                     <div class="price">80.00 <span>100.00</span></div>
-                    <p>
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Vero,
-                      vitae.
-                    </p>
+                   
                     <a href="/tiffinform" class="btn"> Order now</a>
                   </div>
                 </div>
@@ -202,11 +206,7 @@
                   </div>
                   <div class="content">
                     <div class="price">100.00 <span>120.00</span></div>
-                    <p>
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Vero,
-                      vitae.
-                    </p>
+                    
                     <a href="/tiffinform" class="btn"> Order now</a>
                   </div>
                 </div>
