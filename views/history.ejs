@@ -18,7 +18,7 @@
                     <h2 class="text-center mt-5 alert alert-primary"
                         style="font-family: Arial, Helvetica, sans-serif;">
                         Tiffin
-                        Service Data (Admin) </h2>
+                        Service Data (<%= usr[0].name %>) </h2>
 
                     <table class="table table-hover table-responsive
                         table-striped">
@@ -26,7 +26,7 @@
                             <tr class="table-dark">
                                 <th scope="col">No. </th>
                                 <th scope="col">Name. </th>
-                 ac               <th scope="col">Email</th>
+                                <th scope="col">Email</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col">Tiffin</th>
                                 <th scope="col">Cost</th>
@@ -40,7 +40,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <%a.forEach((item, index)=> {%>
+                            <%usr.forEach((item, index)=> {%>
                                 <tr>
                                     <th scope="row"><%= index+1 %></th>
                                         <td><%= item['name'] %></td>

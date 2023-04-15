@@ -134,7 +134,9 @@ const Tiffin = async (req, res) => {
         if (role == 'customer') {
             if (req.method == 'GET') {
                 const { name, email, phone } = req.session;
-                const obj = { name, email, phone, success: false };
+                const size = req.params['size']
+                const cost = req.params['cost']
+                const obj = { name, email, phone, success: false, size, cost };
                 return res.render('TiffinForm.ejs', obj);
             } else {
                 const { name, email, phone } = req.session;
@@ -180,4 +182,15 @@ const feedback = async (req, res) => {
     }
 }
 
-module.exports = { Home, Login, Signup, contact, profile, logout, Tiffin, share, policy, feedback }; 
+const history = async (req, res) => {
+    if (req.session.name) {
+        const usr = await TiffinForm.find({ name: req.session.name });
+        console.log(usr)
+
+        return res.render("history.ejs", {usr} )
+    } else {
+        return res.redirect("/login")
+    }
+}
+
+module.exports = { Home, Login, Signup, contact, profile, logout, Tiffin, share, policy, feedback, history }; 
