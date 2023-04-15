@@ -14,85 +14,107 @@ const Home = (req, res) => {
 };
 
 const Login = async (req, res) => {
-    if (req.method == 'GET') {
-        return res.render('login');
+    if (req.session.name) {
+        return res.redirect("/")
     }
     else {
-        const { email, password } = req.body;
-        try {
-            const user = await User.findOne({ email: email });
-            if (!user) {
-                return res.json({ "error": "This Email-Id is not exits. please try with another one. " });
-            }
-            const compare = bcrypt.compareSync(password, user.password);
-            if (!compare) {
-                return res.json({ "error": "Password is not match." })
-            }
-            req.session.name = user.name;
-            req.session.email = email;
-            req.session.role = user.role;
-            req.session.location = user.location;
-            req.session.phone = user.phone;
 
-            res.redirect("/profile");
-        } catch (error) {
-            res.json({ "error": error.message })
+        if (req.method == 'GET') {
+            return res.render('login');
+        }
+        else {
+            const { email, password } = req.body;
+            try {
+                const user = await User.findOne({ email: email });
+                if (!user) {
+                    return res.json({ "error": "This Email-Id is not exits. please try with another one. " });
+                }
+                const compare = bcrypt.compareSync(password, user.password);
+                if (!compare) {
+                    return res.json({ "error": "Password is not match." })
+                }
+                req.session.name = user.name;
+                req.session.email = email;
+                req.session.role = user.role;
+                req.session.location = user.location;
+                req.session.phone = user.phone;
+
+                res.redirect("/profile");
+            } catch (error) {
+                res.json({ "error": error.message })
+            }
         }
     }
 }
 
 const Signup = async (req, res) => {
-    if (req.method == 'GET') {
-        return res.render('signup');
+    if (req.session.name) {
+        return res.redirect("/")
     }
     else {
-        const { name, email, password, phone } = req.body
-        try {
-            const a = await User.findOne({ email: email });
-            if (a) {
-                return res.json({ "error": "request with this email id already exists. please try with another one." })
+
+        if (req.method == 'GET') {
+            return res.render('signup');
+        }
+        else {
+            const { name, email, password, phone } = req.body
+            try {
+                const a = await User.findOne({ email: email });
+                if (a) {
+                    return res.json({ "error": "request with this email id already exists. please try with another one." })
+                }
+                var salt = bcrypt.genSaltSync(10);
+                var hash = bcrypt.hashSync(password, salt);
+                const data = new User({
+                    name, email, password: hash, phone
+                });
+                const data1 = await data.save();
+                return res.redirect("/login");
+            } catch (error) {
+                return res.send(error);
             }
-            var salt = bcrypt.genSaltSync(10);
-            var hash = bcrypt.hashSync(password, salt);
-            const data = new User({
-                name, email, password: hash, phone
-            });
-            const data1 = await data.save();
-            return res.redirect("/login");
-        } catch (error) {
-            return res.send(error);
         }
     }
 }
 
 const contact = async (req, res) => {
-    const a = req.body;
-    const data = new Contact(a);
-    const data1 = await data.save();
-    return res.redirect("/");
+    if (req.session.name) {
+        const a = req.body;
+        const data = new Contact(a);
+        const data1 = await data.save();
+        return res.redirect("/");
+    }
+    else {
+        return redirect("/login")
+    }
 }
 
 const profile = async (req, res) => {
-    if (req.method == 'GET') {
-        const { name, email } = req.session;
-        const a = await User.findOne({ email: email });
-        req.session.phone = a.phone;
-        const obj = {
-            name, email, phone: req.session.phone
+    if (req.session.name) {
+        if (req.method == 'GET') {
+            const { name, email } = req.session;
+            const a = await User.findOne({ email: email });
+            req.session.phone = a.phone;
+            const obj = {
+                name, email, phone: req.session.phone
+            }
+            res.render("profile", obj);
         }
-        res.render("profile", obj);
-    }
-    else {
-        const { name, email } = req.session;
-        const { phone } = req.body;
-        req.session.phone = phone;
-        const a = await User.findOne({ email: email });
+        else {
+            const { name, email } = req.session;
+            const { phone } = req.body;
+            req.session.phone = phone;
+            const a = await User.findOne({ email: email });
 
-        const obj = {
-            name, email, phone
+            const obj = {
+                name, email, phone
+            }
+            const result = await User.findByIdAndUpdate(a._id, obj);
+            res.redirect('/');
         }
-        const result = await User.findByIdAndUpdate(a._id, obj);
-        res.redirect('/');
+
+    } else {
+        return redirect('/login')
     }
 }
 
@@ -106,30 +128,34 @@ const share = (req, res) => {
 }
 
 const Tiffin = async (req, res) => {
-    role = req.session.role;
+    if (req.session.name) {
+        role = req.session.role;
 
-    if (role == 'customer') {
-        if (req.method == 'GET') {
-            const { name, email, phone } = req.session;
-            const obj = { name, email, phone };
-            return res.render('TiffinForm.ejs', obj);
-        } else {
-            const { name, email, phone } = req.session;
-            const obj = { name, email, phone };
-            const data = new TiffinForm(req.body);
-            const data1 = await data.save();
+        if (role == 'customer') {
+            if (req.method == 'GET') {
+                const { name, email, phone } = req.session;
+                const obj = { name, email, phone };
+                return res.render('TiffinForm.ejs', obj);
+            } else {
+                const { name, email, phone } = req.session;
+                const obj = { name, email, phone };
+                const data = new TiffinForm(req.body);
+                const data1 = await data.save();
 
-            return res.render('TiffinForm.ejs', obj)
+                return res.render('TiffinForm.ejs', obj)
+            }
         }
-    }
-    else if (role == 'kitchen') {
-        return res.render('kitchen.ejs')
-    }
-    else if (role == 'admin') {
-        return res.render('admin.ejs')
-    }
-    else {
-        return res.render('login.ejs')
+        else if (role == 'kitchen') {
+            return res.render('kitchen.ejs')
+        }
+        else if (role == 'admin') {
+            return res.render('admin.ejs')
+        }
+        else {
+            return res.render('login.ejs')
+        }
+    } else {
+        return res.redirect('/login')
     }
 
 }
