@@ -39,9 +39,9 @@ const Login = async (req, res) => {
                 req.session.location = user.location;
                 req.session.phone = user.phone;
 
-                res.redirect("/profile");
+                return res.redirect("/profile");
             } catch (error) {
-                res.json({ "error": error.message })
+                return res.json({ "error": error.message })
             }
         }
     }
@@ -85,7 +85,7 @@ const contact = async (req, res) => {
         return res.redirect("/");
     }
     else {
-        return redirect("/login")
+        return res.redirect("/login")
     }
 }
 
@@ -110,35 +110,34 @@ const profile = async (req, res) => {
                 name, email, phone
             }
             const result = await User.findByIdAndUpdate(a._id, obj);
-            res.redirect('/');
+            return res.redirect('/');
         }
 
     } else {
-        return redirect('/login')
+        return res.redirect('/login')
     }
 }
 
 const logout = (req, res) => {
     req.session.destroy();
-    res.redirect("/login");
+    return res.redirect("/login");
 }
 
 const share = (req, res) => {
-    res.render("share");
+    return res.render("share");
 }
 
 const Tiffin = async (req, res) => {
     if (req.session.name) {
         role = req.session.role;
-
         if (role == 'customer') {
             if (req.method == 'GET') {
                 const { name, email, phone } = req.session;
-                const obj = { name, email, phone };
+                const obj = { name, email, phone, success: false };
                 return res.render('TiffinForm.ejs', obj);
             } else {
                 const { name, email, phone } = req.session;
-                const obj = { name, email, phone };
+                const obj = { name, email, phone, success: true };
                 const data = new TiffinForm(req.body);
                 const data1 = await data.save();
 
@@ -146,10 +145,14 @@ const Tiffin = async (req, res) => {
             }
         }
         else if (role == 'kitchen') {
-            return res.render('kitchen.ejs')
+            location1 = req.session.location;
+            console.log(location1)
+            const a = await TiffinForm.find({ location: location1 })
+            return res.render('kitchen.ejs', { a })
         }
         else if (role == 'admin') {
-            return res.render('admin.ejs')
+            const a = await TiffinForm.find()
+            return res.render('kitchen.ejs', { a })
         }
         else {
             return res.render('login.ejs')

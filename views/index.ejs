@@ -67,7 +67,13 @@
                 <a href="#review">review</a>
                 <a href="#contact">contact</a>
                 <!-- <a href="#blogs">blogs</a> -->
-                <a href="/logout">Logout</a>
+
+                <%if (user=='no' ) {%>
+                <a href="/login">Login</a>
+                <%} else {%>
+                  <a href="/logout">Logout</a>
+                  <%}%>
+
               </nav>
             </header>
 
@@ -478,7 +484,7 @@
                   <h3>follow us</h3>
                   <a href="#"> <i class="fab fa-facebook-f"></i> facebook </a>
                   <!-- <a href="#"> <i class="fab fa-twitter"></i> twitter </a> -->
-                  <a href="#"> <i class="fab fa-instagram"></i> instagram </a>
+                  <a href="https://www.instagram.com/momfood629/"> <i class="fab fa-instagram"></i> instagram </a>
                   <!-- <a href="#"> <i class="fab fa-linkedin"></i> linkedin </a> -->
                   <!-- <a href="#"> <i class="fab fa-pinterest"></i> pinterest </a> -->
                 </div>
