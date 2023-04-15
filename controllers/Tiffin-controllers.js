@@ -30,6 +30,9 @@ const Login = async (req, res) => {
             }
             req.session.name = user.name;
             req.session.email = email;
+            req.session.role = user.role;
+            req.session.location = user.location;
+            req.session.phone = user.phone;
 
             res.redirect("/profile");
         } catch (error) {
@@ -103,18 +106,32 @@ const share = (req, res) => {
 }
 
 const Tiffin = async (req, res) => {
-    if (req.method == 'GET') {
-        const { name, email, phone } = req.session;
-        const obj = { name, email, phone };
-        return res.render('TiffinForm.ejs', obj);
-    } else {
-        const { name, email, phone } = req.session;
-        const obj = { name, email, phone };
-        const data = new TiffinForm(req.body);
-        const data1 = await data.save();
+    role = req.session.role;
 
-        return res.render('TiffinForm.ejs', obj)
+    if (role == 'customer') {
+        if (req.method == 'GET') {
+            const { name, email, phone } = req.session;
+            const obj = { name, email, phone };
+            return res.render('TiffinForm.ejs', obj);
+        } else {
+            const { name, email, phone } = req.session;
+            const obj = { name, email, phone };
+            const data = new TiffinForm(req.body);
+            const data1 = await data.save();
+
+            return res.render('TiffinForm.ejs', obj)
+        }
     }
+    else if (role == 'kitchen') {
+        return res.render('kitchen.ejs')
+    }
+    else if (role == 'admin') {
+        return res.render('admin.ejs')
+    }
+    else {
+        return res.render('login.ejs')
+    }
+
 }
 
 const policy = (req, res) => {

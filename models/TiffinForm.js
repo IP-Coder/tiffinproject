@@ -49,6 +49,10 @@ const TiffinSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    SubmitDate: {
+        type: Date,
+        default: Date.now
+    }
 })
 
 const TiffinForm = new mongoose.model("TiffinForm", TiffinSchema);

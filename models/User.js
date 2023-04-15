@@ -23,6 +23,10 @@ const UserSchema = mongoose.Schema({
         default: 'customer',
         type: String,
         required: true
+    },
+    location: {
+        default: null,
+        type: String
     }
 })
 
