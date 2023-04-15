@@ -1,5 +1,6 @@
 const Contact = require("../models/Contact.js");
 const TiffinForm = require("../models/TiffinForm.js");
+const feedbackSchema = require("../models/feedback.js");
 const User = require("../models/User.js");
 const bcrypt = require("bcryptjs");
 
@@ -152,7 +153,7 @@ const Tiffin = async (req, res) => {
         }
         else if (role == 'admin') {
             const a = await TiffinForm.find()
-            return res.render('kitchen.ejs', { a })
+            return res.render('admin.ejs', { a })
         }
         else {
             return res.render('login.ejs')
@@ -167,4 +168,16 @@ const policy = (req, res) => {
     return res.render("policy")
 }
 
-module.exports = { Home, Login, Signup, contact, profile, logout, Tiffin, share, policy }; 
+
+const feedback = async (req, res) => {
+    if (req.method == 'GET') {
+        return res.render("feedback.ejs", { success: false })
+    }
+    else {
+        const data = new feedbackSchema(req.body)
+        await data.save();
+        return res.render('feedback.ejs', { success: true })
+    }
+}
+
+module.exports = { Home, Login, Signup, contact, profile, logout, Tiffin, share, policy, feedback }; 
