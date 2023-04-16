@@ -145,7 +145,39 @@ const Tiffin = async (req, res) => {
                 const data = new TiffinForm(req.body);
                 const data1 = await data.save();
 
-                return res.redirect('/')
+                const location = req.body.location;
+                const usr = await User.find({$and: [{ "role": "kitchen" }, { 'location': location }]});
+
+                const htm = `<h2> ${data1.name} just submit tiffin form </h2> <br> 
+                
+                <b> Name <b>: ${data1.name} <br>
+                <b> Email <b> : ${data1.email} <br>
+                <b> Phone <b> : ${data1.phone} <br>
+                <b> Tiffin <b> : ${data1.tiffin} <br>
+                <b> Cost <b> : ${data1.cost} <br> 
+                <b> Quantity <b> : ${data1.quantity} <br>
+                <b> Total Cost <b> : ${data1.cost} <br>
+                <b> Location <b> : ${data1.location} <br>
+
+                <br> <br> 
+
+                For Mor Details Please Check on Website.
+                `;
+
+                try {
+                    let info = await transporter.sendMail({
+                        from: "momfood629@gmail.com", // sender address
+                        to: usr[0].email, // list of receivers
+                        subject: "Password Reset Email", // Subject line
+                        html: htm,
+                        text: '',
+
+                    })
+                    return res.redirect('/')
+                } catch (error) {
+                    console.log(error)
+                    return res.json({ "status1": "failed", "message": error.message })
+                }
             }
         }
         else if (role == 'kitchen') {
