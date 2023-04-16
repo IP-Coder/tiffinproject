@@ -265,8 +265,11 @@
           <i></i>
         </div>
         <div class="inputbox">
-          <input type="time" name="time" required="required" />
-          <span>Time</span>
+          <label for="cars" name="time"> Time </label>
+          <select name="time" id="time">
+            <option value="afternoon"> AfterNoon </option>
+            <option value="evening"> Evening </option>
+          </select>
           <i></i>
         </div>
         <div class="inputbox">
@@ -282,7 +285,7 @@
 
         <div class="inputbox" style="color: white;">
 
-          <label for="cars" name="location">Choose a Location:</label>
+          <label for="cars" name="location">Near By Location:</label>
           <select name="location" id="location">
             <option value="Civil Line">Civil Line</option>
             <option value="Buttler">Buttler</option>

@@ -68,7 +68,7 @@
                 <a href="/history">History</a>
                 <!-- <a href="#blogs">blogs</a> -->
 
-                <%if (user=='no' ) {%>
+                <%if (user=='no user login' ) {%>
                   <a href="/login">Login</a>
                   <%} else {%>
                     <a href="/logout">Logout</a>
@@ -187,7 +187,7 @@
                         <div class="content">
                           <div class="price">60.00 <span>80.00</span></div>
                           <p>This Is Regular Food included 4 chapati, Dal Fry,
-                            Rice, Salad, Chole Pari, Kheer, paneer (once in a
+                            Rice, Salad, Chole Puri, Kheer, paneer (once in a
                             week)</p>
                           <a href="/tiffinform/small/60" class="btn"> Order now</a>
                         </div>
@@ -204,7 +204,8 @@
                           <div class="price">80.00 <span>100.00</span></div>
                           <p> In this Tiffin, You get More Quantity of food.
                           </p>
-                          <a href="#" class="btn disabled" disabled> Order now</a>
+                          <a href="#" class="btn disabled" disabled
+                            onclick="a1()"> Order now</a>
                         </div>
                       </div>
 
@@ -219,12 +220,19 @@
                           <div class="price">100.00 <span>120.00</span></div>
                           <p> You get More + Extra Quantity of food. </p>
 
-                          <a href="#" class="btn " disabled> Order now</a>
+                          <a href="#" class="btn " onclick="a1()" disabled>
+                            Order now</a>
                         </div>
                       </div>
                     </div>
                   </section>
 
+                  <script>
+                    function a1() {
+                      let alt = alert('Currently This is Not Available. This will be open in Future Soon.');
+                      window.location = 'tiffinform/small/60'
+                    }
+                  </script>
                   <!-- packages section ends -->
 
                   <!-- pricing section starts  -->
@@ -471,15 +479,15 @@
 
                       <div class="box" data-aos="fade-up">
                         <h3>quick links</h3>
-                        <a href="#"> <i class="fas fa-chevron-right"></i> home
+                        <a href="#home"> <i class="fas fa-chevron-right"></i> home
                         </a>
-                        <a href="#"> <i class="fas fa-chevron-right"></i>
+                        <a href="#packages"> <i class="fas fa-chevron-right"></i>
                           packages
                         </a>
                         <!-- <a href="#"> <i class="fas fa-chevron-right"></i> pricing </a> -->
-                        <a href="#"> <i class="fas fa-chevron-right"></i> review
+                        <a href="#review"> <i class="fas fa-chevron-right"></i> review
                         </a>
-                        <a href="#"> <i class="fas fa-chevron-right"></i>
+                        <a href="#contact"> <i class="fas fa-chevron-right"></i>
                           contact </a>
                         <a href="/policy"> <i class="fas fa-chevron-right"></i>
                           policy
@@ -493,10 +501,13 @@
                           8081312194
                         </a>
                         <a href="mailto:mom-food@gmail.com">
-                          <i class="fas fa-envelop"></i> mom-food@gmail.com
+                          <i class="fa-solid fa-envelope"></i>
+                          mom-food@gmail.com
+
                         </a>
                         <a href="#">
-                          <i class="fas fa-map-marker-alt"></i> Bareilly , india,
+                          <i class="fas fa-map-marker-alt"></i> Bareilly ,
+                          india,
                         </a>
                       </div>
 
