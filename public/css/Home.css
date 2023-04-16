@@ -606,7 +606,7 @@ section{
     }
 
     #search-btn{
-        display:inline-block;
+        /* display:inline-block; */
     }
 
     .header .search-form{
