@@ -1,4 +1,4 @@
-const { Home, Login, Signup, contact, profile, logout, Tiffin, share, policy, feedback, history, response } = require("../controllers/Tiffin-controllers.js");
+const { Home, Login, Signup, contact, profile, logout, Tiffin, share, policy, feedback, history, response, forgotPassword, userPasswordReset} = require("../controllers/Tiffin-controllers.js");
 const express = require("express");
 
 
@@ -31,6 +31,12 @@ router.post("/feedback", feedback);
 
 router.get("/history", history);
 
+// Reset Password 
+router.get("/forgotPassword", forgotPassword);
+router.post("/forgotPassword", forgotPassword);
+router.get("/reset/:id/:token", userPasswordReset);
+router.post("/reset/:id/:token", userPasswordReset);
+
 router.get("/logout", logout);
 
-module.exports = router;
+module.exports = router; 

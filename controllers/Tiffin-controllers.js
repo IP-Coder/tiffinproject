@@ -3,7 +3,8 @@ const TiffinForm = require("../models/TiffinForm.js");
 const feedbackSchema = require("../models/feedback.js");
 const User = require("../models/User.js");
 const bcrypt = require("bcryptjs");
-
+const jwt = require("jsonwebtoken");
+const transporter = require('../db/emailconfig.js')
 
 const Home = (req, res) => {
     if (req.session.name) {
@@ -201,4 +202,98 @@ const response = async (req, res) => {
     return res.redirect("/history")
 }
 
-module.exports = { Home, Login, Signup, contact, profile, logout, Tiffin, share, policy, feedback, history, response }; 
+const forgotPassword = async (req, res) => {
+    if (req.method == 'GET') {
+        return res.render("forgotpassword.ejs", {"success": false})
+    } else {
+        const { email } = req.body;
+        console.log(email)
+        if (email) {
+            const user = await User.findOne({ "email": email });
+            if (!user) {
+                return res.json({ "status": "failed", "message": "User Does not Exist." })
+            }
+            const secret = user._id + "GeekyShow Create this Website Backend Api using Node & Express Js, Jwt, Bcrypt and ... ";
+
+            const data = {
+                "id": user._id
+            };
+            const token = jwt.sign(data, secret, { expiresIn: "10m" });
+            // const link = `http://localhost:3000/reset/${user._id}/${token}`;
+            const link = `http://127.0.0.1:8000/reset/${user._id}/${token}`;
+
+            // Send Email
+
+            try {
+                let info = await transporter.sendMail({
+                    from: "momfood629@gmail.com", // sender address
+                    to: email, // list of receivers
+                    subject: "Password Reset Email", // Subject line
+                    text: link, // plain text body
+                    html: `Password Reset Link. <a href=${link}> Reset Password Link </a> </h4>`,
+                })
+                return res.render('forgotpassword',  {"success": true})
+            } catch (error) {
+                console.log(error)
+                res.json({ "status1": "failed", "message": error.message })
+            }
+
+
+        } else {
+            return res.json({ "status": "filled", "message": "All Fields are Required" })
+        }
+    }
+
+}
+
+const userPasswordReset = async (req, res) => {
+    if (req.method == 'GET') {
+        return res.render("resetpasswordform.ejs")
+    } else {
+
+        try {
+            const { password, password_confirm } = req.body;
+            if (password && password_confirm) {
+                if (password === password_confirm) {
+
+                    const { id, token } = req.params;
+                    const user = await User.findById(id);
+
+                    if (!user) {
+                        return req.json({ "status": "Failed", "1message": "Request With this User is not Exist" })
+                    }
+
+                    try {
+                        const secret = user._id + "GeekyShow Create this Website Backend Api using Node & Express Js, Jwt, Bcrypt and ... ";
+                        const auth_token = jwt.verify(token, secret);
+
+                        bcrypt.genSalt(10, async function (err, salt) {
+                            bcrypt.hash(password, salt, async function (err, hash) {
+                                // Store hash in your password DB.
+                                await User.updateOne({ "_id": id }, {
+                                    $set: {
+                                        password: hash
+                                    }
+                                })
+                                return res.redirect('/login')
+                            });
+                        });
+
+                    } catch (error) {
+                        res.json({ "status": "failed", "3message": error.message })
+                    }
+                } else {
+                    return res.json({ "status": "failed", "4message": "Password and Confirm Password are not Match." })
+                }
+
+            } else {
+                return res.json({ "status": "failed", "5message": "All Fileds are Required" });
+            }
+        } catch (error) {
+            res.json({ "status": "failed", "6message": "Internal Server Error" });
+        }
+    }
+}
+
+
+module.exports = { Home, Login, Signup, contact, profile, logout, Tiffin, share, policy, feedback, history, response, forgotPassword, userPasswordReset }; 
