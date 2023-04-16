@@ -204,7 +204,7 @@ const response = async (req, res) => {
 
 const forgotPassword = async (req, res) => {
     if (req.method == 'GET') {
-        return res.render("forgotpassword.ejs", {"success": false})
+        return res.render("forgotpassword.ejs", { "success": false })
     } else {
         const { email } = req.body;
         console.log(email)
@@ -220,7 +220,7 @@ const forgotPassword = async (req, res) => {
             };
             const token = jwt.sign(data, secret, { expiresIn: "10m" });
             // const link = `http://localhost:3000/reset/${user._id}/${token}`;
-            const link = `http://127.0.0.1:8000/reset/${user._id}/${token}`;
+            const link = `https://mom-food.azurewebsites.net/reset/${user._id}/${token}`;
 
             // Send Email
 
@@ -232,7 +232,7 @@ const forgotPassword = async (req, res) => {
                     text: link, // plain text body
                     html: `Password Reset Link. <a href=${link}> Reset Password Link </a> </h4>`,
                 })
-                return res.render('forgotpassword',  {"success": true})
+                return res.render('forgotpassword', { "success": true })
             } catch (error) {
                 console.log(error)
                 res.json({ "status1": "failed", "message": error.message })
