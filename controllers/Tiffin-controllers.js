@@ -146,7 +146,7 @@ const Tiffin = async (req, res) => {
                 const data1 = await data.save();
 
                 const location = req.body.location;
-                const usr = await User.find({$and: [{ "role": "kitchen" }, { 'location': location }]});
+                const usr = await User.find({ $and: [{ "role": "kitchen" }, { 'location': location }] });
 
                 const htm = `<h2> ${data1.name} just submit tiffin form </h2> <br> 
                 
@@ -173,7 +173,13 @@ const Tiffin = async (req, res) => {
                         text: '',
 
                     })
-                    return res.redirect('/')
+
+                    const { name, email, phone } = req.session;
+                    const size = 'small'
+                    const cost = 60
+                    const obj = { name, email, phone, success: true, size, cost };
+
+                    return res.render('TiffinForm.ejs', obj);
                 } catch (error) {
                     console.log(error)
                     return res.json({ "status1": "failed", "message": error.message })

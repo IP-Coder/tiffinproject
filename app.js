@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // MongoDB Session
 const sessionStorage = MongoStore.create({
-    mongoUrl: "mongodb+srv://rohanguptabc80:rohan0000@cluster0.kpjqdwd.mongodb.net/test",
+    mongoUrl: "mongodb+srv://aksh2137:aksh2137@cluster0.jpqpxva.mongodb.net/test",
     dbName: "Assignment",
     collectionName: "session",
     ttl: 604800000,
