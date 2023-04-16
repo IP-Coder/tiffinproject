@@ -144,7 +144,7 @@ const Tiffin = async (req, res) => {
                 const data = new TiffinForm(req.body);
                 const data1 = await data.save();
 
-                return res.render('TiffinForm.ejs', obj)
+                return res.redirect('/')
             }
         }
         else if (role == 'kitchen') {
@@ -187,7 +187,7 @@ const history = async (req, res) => {
         const usr = await TiffinForm.find({ name: req.session.name });
         console.log(usr)
 
-        return res.render("history.ejs", {usr} )
+        return res.render("history.ejs", { usr })
     } else {
         return res.redirect("/login")
     }

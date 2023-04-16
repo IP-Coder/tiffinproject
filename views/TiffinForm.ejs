@@ -2,16 +2,18 @@
 <!-- CodingMaker-->
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title></title>
-  <!--CSS Style-->
-  <link rel="stylesheet" href="https://mom-food.azurewebsites.net/css/TiffinForm.css" />
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" />
-</head>
-<style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <!--CSS Style-->
+    <link rel="stylesheet"
+      href="https://mom-food.azurewebsites.net/css/TiffinForm.css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+      rel="stylesheet" />
+  </head>
+  <style>
   /* Google Fonts - Poppins */
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
@@ -188,95 +190,118 @@
     opacity: 0.8;
   }
 </style>
+  <body>
+    <div class="box">
+      <form class="form" method="post">
+        <h2>Tiffin Booking Page</h2>
+        <div class="inputbox">
+          <input type="text" required="required" name="name" readonly value="<%=name%>"
+          />
+          <span> Customer Name </span>
+          <i></i>
+        </div>
 
-<body>
-  <div class="box">
-    <form class="form" method="post">
-      <h2>Tiffin Booking Page</h2>
-      <div class="inputbox">
-        <input type="text" required="required" name="name" readonly value="<%=name%>" />
-        <span> Customer Name </span>
-        <i></i>
-      </div>
+        <div class="inputbox">
+          <input type="text" name="email" required="required" readonly value="<%=email%>"
+          />
+          <span>EmaliID</span>
+          <i></i>
+        </div>
 
-      <div class="inputbox">
-        <input type="text" name="email" required="required" readonly value="<%=email%>" />
-        <span>EmaliID</span>
-        <i></i>
-      </div>
+        <div class="inputbox">
+          <input type="text" name="phone" required="required" readonly value="<%=phone%>"
+          />
+          <span>Contact</span>
+          <i></i>
+        </div>
 
-      <div class="inputbox">
-        <input type="text" name="phone" required="required" readonly value="<%=phone%>" />
-        <span>Contact</span>
-        <i></i>
-      </div>
-
-      <div class="inputbox">
-        <input type="text" name="tiffin" required="required" value="<%= size
+        <div class="inputbox">
+          <input type="text" name="tiffin" required="required" value="<%= size
             %>" readonly />
-        <span>Tiffin</span>
-        <i></i>
-      </div>
-      <div class="inputbox">
-        <input type="number" name="cost" required="required" value="<%= cost
-          %>" readonly />
-        <span>Cost</span>
-        <i></i>
-      </div>
-      <div class="inputbox">
-        <input type="number" name="quantity" required="required" />
-        <span>Quantity</span>
-        <i></i>
-      </div>
-      <div class="inputbox">
-        <input type="date" name="fromdate" required="required" />
-        <span>From Date</span>
-        <i></i>
-      </div>
-      <div class="inputbox">
-        <input type="date" name="todate" required="required" />
-        <span>To Date</span>
-        <i></i>
-      </div>
-      <div class="inputbox">
-        <input type="time" name="time" required="required" />
-        <span>Time</span>
-        <i></i>
-      </div>
-      <div class="inputbox">
-        <input type="text" name="address" required="required" />
-        <span>Address</span>
-        <i></i>
-      </div>
-      <div class="inputbox">
-        <input type="text" name="day" required="required" />
-        <span>Total day</span>
-        <i></i>
-      </div>
+          <span>Tiffin</span>
+          <i></i>
+        </div>
+        <div class="inputbox">
+          <input type="number" name="cost" required="required" value="<%= cost
+            %>" readonly />
+          <span>Cost</span>
+          <i></i>
+        </div>
+        <div class="inputbox">
+          <input type="number" id="quantity" name="quantity" required="required"
+            oninput="quantfunc()"
+            />
+          <span>Quantity</span>
+          <i></i>
+        </div>
+        <div class="inputbox">
+          <input type="number" name="totalcost" id="totalcost"
+            required="required"
+            value="0" readonly />
+          <span>Total Cost</span>
+          <i></i>
+        </div>
 
-      <div class="inputbox" style="color: white;">
+        <script>
+          
+          function quantfunc() {
+          let quantity = document.getElementById('quantity');
+          let cost = <%= cost %>;
+          let totalcost = document.getElementById('totalcost');
 
-        <label for="cars" name="location">Choose a Location:</label>
-        <select name="location" id="location">
-          <option value="Civil Line">Civil Line</option>
-          <option value="Buttler">Buttler</option>
-          <option value="Satellite">Satellite</option>
-          <option value="Company Garden">Company Garden</option>
-          <option value="Rajendra Nagar">Rajendra Nagar</option>
-          <option value="RTO Office">RTO Office</option>
-        </select>
-      </div>
+          totalcost.value = quantity.value * cost ;
+
+        }
+
+      </script>
+        <div class="inputbox">
+          <input type="date" name="fromdate" required="required" />
+          <span>From Date</span>
+          <i></i>
+        </div>
+        <div class="inputbox">
+          <input type="date" name="todate" required="required" />
+          <span>To Date</span>
+          <i></i>
+        </div>
+        <div class="inputbox">
+          <input type="time" name="time" required="required" />
+          <span>Time</span>
+          <i></i>
+        </div>
+        <div class="inputbox">
+          <input type="text" name="address" required="required" />
+          <span>Address</span>
+          <i></i>
+        </div>
+        <div class="inputbox">
+          <input type="text" name="day" required="required" />
+          <span>Total day</span>
+          <i></i>
+        </div>
+
+        <div class="inputbox" style="color: white;">
+
+          <label for="cars" name="location">Choose a Location:</label>
+          <select name="location" id="location">
+            <option value="Civil Line">Civil Line</option>
+            <option value="Buttler">Buttler</option>
+            <option value="Satellite">Satellite</option>
+            <option value="Company Garden">Company Garden</option>
+            <option value="Rajendra Nagar">Rajendra Nagar</option>
+            <option value="RTO Office">RTO Office</option>
+          </select>
+        </div>
 
 
-      <input type="submit" value="Cash on Delievery" />
-    </form>
-  </div>
-</body>
+        <input type="submit" value="Cash on Delievery" />
+      </form>
+    </div>
+  </body>
 
-<script>
+  <script>
   if (<%= success %>) {
     alert(" Form Uploaded Successfully. ")
   }
 </script>
-
 </html>

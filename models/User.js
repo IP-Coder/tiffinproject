@@ -25,7 +25,7 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    location: {
+    location: { 
         default: null,
         type: String
     }

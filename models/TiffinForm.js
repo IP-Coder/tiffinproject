@@ -52,6 +52,10 @@ const TiffinSchema = mongoose.Schema({
     SubmitDate: {
         type: Date,
         default: Date.now
+    },
+    totalcost: {
+        type: Number,
+        required: true
     }
 })
 

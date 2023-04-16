@@ -20,7 +20,7 @@ router.get("/profile", profile);
 router.post("/profile", profile);
 
 router.get("/TiffinForm/:size/:cost", Tiffin);
-router.post("/TiffinForm", Tiffin);
+router.post("/TiffinForm/:size/:cost", Tiffin);
 
 router.get("/policy", policy);
 
