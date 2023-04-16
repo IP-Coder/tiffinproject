@@ -1,4 +1,4 @@
-const { Home, Login, Signup, contact, profile, logout, Tiffin, share, policy, feedback, history } = require("../controllers/Tiffin-controllers.js");
+const { Home, Login, Signup, contact, profile, logout, Tiffin, share, policy, feedback, history, response } = require("../controllers/Tiffin-controllers.js");
 const express = require("express");
 
 
@@ -23,6 +23,8 @@ router.get("/TiffinForm/:size/:cost", Tiffin);
 router.post("/TiffinForm/:size/:cost", Tiffin);
 
 router.get("/policy", policy);
+
+router.post("/response/:id", response);
 
 router.get("/feedback", feedback);
 router.post("/feedback", feedback);

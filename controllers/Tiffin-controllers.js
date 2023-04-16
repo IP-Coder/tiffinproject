@@ -10,7 +10,7 @@ const Home = (req, res) => {
         return res.render('index', { user: req.session.name });
     }
     else {
-        return res.render('index', { user: 'no' });
+        return res.render('index', { user: 'no user login' });
     }
 };
 
@@ -184,8 +184,8 @@ const feedback = async (req, res) => {
 
 const history = async (req, res) => {
     if (req.session.name) {
+
         const usr = await TiffinForm.find({ name: req.session.name });
-        console.log(usr)
 
         return res.render("history.ejs", { usr })
     } else {
@@ -193,4 +193,12 @@ const history = async (req, res) => {
     }
 }
 
-module.exports = { Home, Login, Signup, contact, profile, logout, Tiffin, share, policy, feedback, history }; 
+
+const response = async (req, res) => {
+    const id = req.params['id']
+    console.log('id', id);
+    const data = await TiffinForm.findByIdAndUpdate(id, { response: 'accept' })
+    return res.redirect("/history")
+}
+
+module.exports = { Home, Login, Signup, contact, profile, logout, Tiffin, share, policy, feedback, history, response }; 

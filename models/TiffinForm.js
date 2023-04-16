@@ -56,6 +56,10 @@ const TiffinSchema = mongoose.Schema({
     totalcost: {
         type: Number,
         required: true
+    },
+    response: {
+        type: String,
+        default: null
     }
 })
 
