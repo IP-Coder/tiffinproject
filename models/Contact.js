@@ -7,12 +7,10 @@ const ContactSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        unique: true,
         required: true
     },
     number: {
         type: Number,
-        unique: true,
         required: true
     },
     subject: {

@@ -84,6 +84,7 @@ const contact = async (req, res) => {
         const a = req.body;
         const data = new Contact(a);
         const data1 = await data.save();
+        console.log('data1', data1)
         return res.redirect("/");
     }
     else {
