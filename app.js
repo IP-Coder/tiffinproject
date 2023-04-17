@@ -16,7 +16,7 @@ const sessionStorage = MongoStore.create({
     mongoUrl: "mongodb+srv://aksh2137:aksh2137@cluster0.jpqpxva.mongodb.net/test",
     dbName: "Assignment",
     collectionName: "session",
-    ttl: 604800000,
+    ttl: 604800000, 
     autoRemove: "native"
 })
 

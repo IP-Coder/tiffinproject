@@ -179,7 +179,7 @@
     outline: none;
     background: #45f3ff;
     padding: 11px 25px;
-    width: 100px;
+    width: 244px;
     margin-top: 10px;
     border-radius: 4px;
     font-weight: 600;
@@ -265,7 +265,7 @@
           <i></i>
         </div>
         <div class="inputbox">
-          <label for="cars" name="time"> Time </label>
+          <label for="time" name="time" style="color: white;"> Time </label>
           <select name="time" id="time">
             <option value="afternoon"> AfterNoon </option>
             <option value="evening"> Evening </option>
@@ -297,7 +297,7 @@
         </div>
 
 
-        <input type="submit" value="Cash on Delievery" />
+        <input type="submit" value="Cash on Delievery and submit" />
       </form>
     </div>
   </body>
@@ -305,6 +305,7 @@
   <script>
   if (<%= success %>) {
     alert(" Form Uploaded Successfully. ")
+    window.location = ("/")
   }
 </script>
 </html>
