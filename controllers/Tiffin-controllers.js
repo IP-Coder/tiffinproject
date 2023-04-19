@@ -60,6 +60,12 @@ const Signup = async (req, res) => {
         }
         else {
             const { name, email, password, phone } = req.body
+            if (phone.length !== 10) {
+                return res.json({
+                    error:
+                        "Make Sure your Phone Number Length is exactly 10",
+                });
+            }
             try {
                 const a = await User.findOne({ email: email });
                 if (a) {
@@ -179,7 +185,7 @@ const Tiffin = async (req, res) => {
                     const size = 'small'
                     const cost = 60
                     const obj = { name, email, phone, success: true, size, cost };
-
+                    console.log('obj')
                     return res.render('TiffinForm.ejs', obj);
                 } catch (error) {
                     console.log(error)

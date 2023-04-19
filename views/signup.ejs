@@ -31,10 +31,21 @@
                 </div>
 
                 <div class="inputbox">
-                    <input type="number" required="required" name="phone">
+                    <input type="number" required="required" id="phone" name="phone"  onblur="a()">
                     <span>Phone</span>
                     <i></i>
                 </div>
+
+                <script>
+                    function a() {
+                      let ph = document.getElementById('phone').value;
+                      console.log(ph.length);
+          
+                      if (ph.length != 10) {
+                        alert('Make Sure your Phone Number Length is exactly 10')
+                      }
+                    }
+                  </script>
 
                 <div class="inputbox">
                     <input type="password" required="required" name="password">
