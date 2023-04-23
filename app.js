@@ -13,11 +13,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.post("/kitchen1", async (req, res) => {
   const { email, location, type } = req.body;
-
+  console.log(req.body);
   let data = [];
   try {
-    const docs = await Tiffin.find({ location }).exec();
-    console.log(docs);
+    let docs;
+    if (type === "admin") {
+      docs = await Tiffin.find({});
+    } else if (type === "kitchen") {
+      docs = await Tiffin.find({ location }).exec();
+    }
+
     docs.forEach((doc) => {
       let name = doc.name;
       let emailField = doc.email;
@@ -34,6 +39,7 @@ app.post("/kitchen1", async (req, res) => {
       let fromdate = doc.fromdate;
       let quantity = doc.quantity;
       let cost = doc.cost;
+      let phone = doc.phone;
       data.push({
         name,
         email: emailField,
@@ -50,6 +56,7 @@ app.post("/kitchen1", async (req, res) => {
         fromdate,
         quantity,
         cost,
+        phone,
       });
     });
     console.log(data.length);
@@ -96,6 +103,7 @@ app.post("/tiffin1", async (req, res) => {
       fromdate: fromDate,
       quantity: Quantity1,
       cost: Cost1,
+      phone: Contact1,
     });
     const d = await tiffin.save();
     res.json({
