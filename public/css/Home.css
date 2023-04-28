@@ -18,7 +18,9 @@
   border: none;
   text-decoration: none;
   text-transform: capitalize;
-  transition: all 0.2s linear;
+  transition: all 0.2s linear ;
+  
+  
 }
 
 html {
@@ -162,11 +164,27 @@ section {
   color: var(--text-color-1);
   cursor: pointer;
   text-align: center;
+  display: none;
 }
 
 .header .icons div:hover {
   color: #fff;
   background: var(--orange);
+  display: none;
+ 
+}
+
+/* ADD by rohan */
+@media screen and (width: 1990px) {
+  .navbar2 {
+    /* display: none; */
+    font-size: 30px;
+    padding-left: 50px;
+    
+  }
+  header .icons div:hover {
+      font-size: 16px;
+  }
 }
 
 #search-btn {
@@ -194,7 +212,7 @@ section {
   margin: 1rem;
   padding: 1rem;
   font-size: 1.5rem;
-  color: var(--text-color-1);
+  /* color: var(--text-color-1); */
   border-radius: 0.5rem;
 }
 
@@ -629,3 +647,8 @@ section {
     width: 100%;
   }
 }
+
+a{
+  color: black;
+}
+

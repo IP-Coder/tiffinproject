@@ -1,4 +1,4 @@
-/* Google Fonts - Poppins */
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 * {
   margin: 0;
@@ -11,7 +11,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #23242a;
+  /* background: #23242a; */
 }
 .box {
   position: relative;
@@ -30,7 +30,7 @@ body {
   height: 420px;
   background: linear-gradient(0deg, transparent, #45f3ff, transparent, #45f3ff);
   transform-origin: bottom right;
-  animation: animate 6s linear infinite;
+  /* animation: animate 6s linear infinite; */
 }
 .box::after {
   content: "";
@@ -39,15 +39,9 @@ body {
   left: -50%;
   width: 320px;
   height: 420px;
-  background: linear-gradient(
-    10deg,
-    transparent,
-    #45f3ff,
-    transparent,
-    #45f3ff
-  );
+ 
   transform-origin: bottom right;
-  animation: animate 6s linear infinite;
+  /* animation: animate 6s linear infinite; */
   animation-delay: -3s;
 }
 @keyframes animate {
@@ -106,7 +100,7 @@ body {
 }
 .inputbox input:valid ~ span,
 .inputbox input:focus ~ span {
-  color: #45f3ff;
+  /* color: #45f3ff; */
   transform: translateX(0px) translateY(-34px);
   font-size: 0.75em;
 }
